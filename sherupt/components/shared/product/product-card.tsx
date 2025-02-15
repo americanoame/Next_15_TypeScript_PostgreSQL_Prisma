@@ -4,10 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import ProductPrice from "./product-price";
+import { Product } from '@/types';
 
 import { useIsClient } from "@/hooks/useIsClient";
 
-const ProductCard = ({ product }: { product: any }) => {
+const ProductCard = ({ product }: { product: Product }) => {
   // Ensure styles are applied only after the component mounts
 
   const mounted = useIsClient(); // Using the custom hook
