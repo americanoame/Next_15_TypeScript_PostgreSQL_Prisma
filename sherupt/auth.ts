@@ -57,25 +57,26 @@ export const config = {
     }),
   ],
   callbacks: {
-    async session ({ session, user, trigger, token }: any) {
-
-      console.log('Session:', session);
-    console.log('User:', user);
-    console.log('Token:', token);
-
+    async session({ session, token, trigger, user }: any) {
+      console.log('Session (Before):', session);
+      console.log('Token:', token);
+      console.log('User (Expected Undefined):', user);
+  
       // Use the token object to populate the session user properties
-    session.user.id = token.sub; // Set the user ID from the token
-    session.user.name = token.name; // Set the name from the token
-    session.user.email = token.email; // Set the email from the token
-
-
-      // If there is an update, set the name on the session
-      if (trigger === 'update') {
+      session.user.id = token.sub; // Set the user ID from the token
+      session.user.name = token.name; // Set the name from the token
+      session.user.email = token.email; // Set the email from the token
+  
+      // If trigger is 'update', and user exists, allow updates to the session (optional)
+      if (trigger === 'update' && user) {
         session.user.name = user.name;
       }
+  
+      console.log('Session (After):', session);
       return session;
     },
   },
+  
 } satisfies NextAuthConfig;
 
 export const { handlers, auth, signIn, signOut  } = NextAuth(config);
