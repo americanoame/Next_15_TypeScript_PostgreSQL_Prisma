@@ -33,6 +33,10 @@ export const config = {
         });
         // Check if user exists and password is correct
         if (user && user.password) {
+
+          console.log('Password from form:', credentials.password);
+          console.log('Password in DB:', user.password);
+
           const isMatch = compareSync(
             credentials.password as string,
             user.password
@@ -65,4 +69,4 @@ export const config = {
   },
 } satisfies NextAuthConfig;
 
-export const { handlers, auth, signIn, signOut,  } = NextAuth(config);
+export const { handlers, auth, signIn, signOut  } = NextAuth(config);
