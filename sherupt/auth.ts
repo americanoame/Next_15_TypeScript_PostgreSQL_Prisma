@@ -58,8 +58,17 @@ export const config = {
   ],
   callbacks: {
     async session ({ session, user, trigger, token }: any) {
-      // Set the user id on the session
-      session.user.id = token.sub;
+
+      console.log('Session:', session);
+    console.log('User:', user);
+    console.log('Token:', token);
+
+      // Use the token object to populate the session user properties
+    session.user.id = token.sub; // Set the user ID from the token
+    session.user.name = token.name; // Set the name from the token
+    session.user.email = token.email; // Set the email from the token
+
+
       // If there is an update, set the name on the session
       if (trigger === 'update') {
         session.user.name = user.name;
